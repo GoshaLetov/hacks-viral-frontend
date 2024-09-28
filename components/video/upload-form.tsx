@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid'; // Import UUID library
 import { useRouter } from 'next/navigation'; // Import useRouter from next/navigation
+import VideoPlayer from './video-player';
 
 export default function UploadForm() {
   const [videoId, setVideoId] = useState<string | null>(null);
@@ -87,39 +88,51 @@ export default function UploadForm() {
     }
   };
 
+  const videoSrc = 'someVideoSrc'; // Example video source
+  const videoWidth = 640; // Example video width
+  const videoHeight = 360; // Example video height
+  const clipNum = 1; // Example clip number
+
   return (
-    <form className="mx-auto max-w-[400px]" onSubmit={handleSubmit}>
-      <div>
-        <label
-          className="mb-1 block text-sm font-medium text-indigo-200/65"
-          htmlFor="file"
-        >
-          Video File
-        </label>
-        <input
-          id="file"
-          name="file"
-          type="file"
-          className="form-input w-full"
-          accept=".mp4, .mov, .3gp, .avi"
-          required
-        />
-      </div>
-      {error && (
-        <div className="mt-4 text-red-500">
-          {error}
+    <div>
+      <form className="mx-auto max-w-[400px]" onSubmit={handleSubmit}>
+        <div>
+          <label
+            className="mb-1 block text-sm font-medium text-indigo-200/65"
+            htmlFor="file"
+          >
+            Video File
+          </label>
+          <input
+            id="file"
+            name="file"
+            type="file"
+            className="form-input w-full"
+            accept=".mp4, .mov, .3gp, .avi"
+            required
+          />
         </div>
-      )}
-      {loading && (
-        <div className="mt-4 text-indigo-500">
-          Загрузка...
+        {error && (
+          <div className="mt-4 text-red-500">
+            {error}
+          </div>
+        )}
+        {loading && (
+          <div className="mt-4 text-indigo-500">
+            Загрузка...
+          </div>
+        )}
+        <div className="mt-6">
+          <button className="btn w-full bg-gradient-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-[inset_0px_1px_0px_0px_theme(colors.white/.16)] hover:bg-[length:100%_150%]" disabled={loading}>
+            Загрузить
+          </button>
         </div>
-      )}
-      <div className="mt-6">
-        <button className="btn w-full bg-gradient-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-[inset_0px_1px_0px_0px_theme(colors.white/.16)] hover:bg-[length:100%_150%]" disabled={loading}>
-          Загрузить
-        </button>
-      </div>
-    </form>
+      </form>
+      <VideoPlayer
+        videoSrc={videoSrc}
+        videoWidth={videoWidth}
+        videoHeight={videoHeight}
+      />
+    </div>
   );
 }
