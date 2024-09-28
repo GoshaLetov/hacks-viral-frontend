@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import CustomVideoPlayer from "@/components/custom-video-player";
-import VideoThumb from "@/public/images/hero-image-01.jpg";
 
 export default function Clips() {
   const [clips, setClips] = useState<string[]>([]);
@@ -20,7 +19,7 @@ export default function Clips() {
         const clipsNum = parseInt(storedClipsNum, 10);
         const fetchedClips: string[] = [];
         for (let i = 1; i <= clipsNum; i++) {
-          const response = await fetch(`http://localhost:8000/api/part?videoId=${storedVideoId}&clipsNum=${i}`);
+          const response = await fetch(`http://fastapi:8000/api/part?videoId=${storedVideoId}&clipsNum=${i}`);
           const videoBlob = await response.blob();
           const videoUrl = URL.createObjectURL(videoBlob);
           fetchedClips.push(videoUrl);

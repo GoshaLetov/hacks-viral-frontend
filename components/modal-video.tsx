@@ -123,7 +123,7 @@ export default function ModalVideo({
                 width={videoWidth}
                 height={videoHeight}
                 loop
-                controls // Ensure controls attribute is present
+                controls
               >
                 <source src={video} type="video/mp4" />
                 Your browser does not support the video tag.
