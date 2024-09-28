@@ -51,32 +51,39 @@ export default function UploadForm() {
 
     try {
       setLoading(true); // Show loading indicator
+      console.log('Starting upload request...');
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/upload`, {
         method: 'POST',
         body: formData,
       });
 
       if (response.ok) {
+        console.log('Upload request successful.');
         setError(null); // Clear any previous errors
 
         // Call the generate API with videoId
+        console.log('Starting generate request...');
         const generateResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/generate?videoId=${videoId}`, {
           method: 'GET',
         });
 
         if (generateResponse.ok) {
+          console.log('Generate request successful.');
           const clipsNum = await generateResponse.json();
           sessionStorage.setItem('clipsNum', clipsNum.toString());
           setLoading(false); // Hide loading indicator
           router.push('/clips'); // Redirect to the generate page
         } else {
+          console.error('Generate request failed.');
           setLoading(false); // Hide loading indicator
           setError('Failed to generate clips number.');
         }
       } else if (response.status === 422) {
+        console.error('Upload request failed with status 422.');
         setLoading(false); // Hide loading indicator
         setError('Unprocessable Entity: Please check the uploaded file and try again.');
       } else {
+        console.error('Upload request failed.');
         setLoading(false); // Hide loading indicator
         setError('Failed to upload video.');
       }
