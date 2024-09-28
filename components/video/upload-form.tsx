@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid'; // Import UUID library
 import { useRouter } from 'next/navigation'; // Import useRouter from next/navigation
-import VideoPlayer from './video-player';
 
 export default function UploadForm() {
   const [videoId, setVideoId] = useState<string | null>(null);
@@ -52,7 +51,7 @@ export default function UploadForm() {
 
     try {
       setLoading(true); // Show loading indicator
-      const response = await fetch('/upload', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/upload`, {
         method: 'POST',
         body: formData,
       });
@@ -61,7 +60,7 @@ export default function UploadForm() {
         setError(null); // Clear any previous errors
 
         // Call the generate API with videoId
-        const generateResponse = await fetch(`/generate?videoId=${videoId}`, {
+        const generateResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/generate?videoId=${videoId}`, {
           method: 'GET',
         });
 
@@ -87,11 +86,6 @@ export default function UploadForm() {
       setError('An error occurred while uploading the video.');
     }
   };
-
-  const videoSrc = 'someVideoSrc'; // Example video source
-  const videoWidth = 640; // Example video width
-  const videoHeight = 360; // Example video height
-  const clipNum = 1; // Example clip number
 
   return (
     <div>
@@ -128,11 +122,6 @@ export default function UploadForm() {
           </button>
         </div>
       </form>
-      <VideoPlayer
-        videoSrc={videoSrc}
-        videoWidth={videoWidth}
-        videoHeight={videoHeight}
-      />
     </div>
   );
 }
