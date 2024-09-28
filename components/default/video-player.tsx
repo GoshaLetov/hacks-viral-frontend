@@ -94,9 +94,7 @@ export default function VideoPlayer({
               </defs>
             </svg>
             <span className="text-sm font-medium leading-tight text-gray-300">
-              Watch Demo
-              <span className="text-gray-600"> - </span>
-              3:47
+              Смотреть видео
             </span>
           </span>
         </span>
