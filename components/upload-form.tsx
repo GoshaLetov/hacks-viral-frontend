@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'; // Import useRouter from next/navig
 export default function UploadForm() {
   const [videoId, setVideoId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null); // State for error messages
+  const [loading, setLoading] = useState<boolean>(false); // State for loading indicator
   const router = useRouter(); // Initialize the router
 
   useEffect(() => {
@@ -49,6 +50,7 @@ export default function UploadForm() {
     }
 
     try {
+      setLoading(true); // Show loading indicator
       const response = await fetch('http://localhost:8000/api/upload', {
         method: 'POST',
         body: formData,
@@ -56,14 +58,31 @@ export default function UploadForm() {
 
       if (response.ok) {
         setError(null); // Clear any previous errors
-        router.push('/generate'); // Redirect to the generate page
+
+        // Call the generate API with videoId
+        const generateResponse = await fetch(`http://localhost:8000/api/generate?videoId=${videoId}`, {
+          method: 'GET',
+        });
+
+        if (generateResponse.ok) {
+          const clipsNum = await generateResponse.json();
+          sessionStorage.setItem('clipsNum', clipsNum.toString());
+          setLoading(false); // Hide loading indicator
+          router.push('/clips'); // Redirect to the generate page
+        } else {
+          setLoading(false); // Hide loading indicator
+          setError('Failed to generate clips number.');
+        }
       } else if (response.status === 422) {
+        setLoading(false); // Hide loading indicator
         setError('Unprocessable Entity: Please check the uploaded file and try again.');
       } else {
+        setLoading(false); // Hide loading indicator
         setError('Failed to upload video.');
       }
     } catch (error) {
       console.error('Error uploading video:', error);
+      setLoading(false); // Hide loading indicator
       setError('An error occurred while uploading the video.');
     }
   };
@@ -91,8 +110,13 @@ export default function UploadForm() {
           {error}
         </div>
       )}
+      {loading && (
+        <div className="mt-4 text-indigo-500">
+          Загрузка...
+        </div>
+      )}
       <div className="mt-6">
-        <button className="btn w-full bg-gradient-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-[inset_0px_1px_0px_0px_theme(colors.white/.16)] hover:bg-[length:100%_150%]">
+        <button className="btn w-full bg-gradient-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-[inset_0px_1px_0px_0px_theme(colors.white/.16)] hover:bg-[length:100%_150%]" disabled={loading}>
           Загрузить
         </button>
       </div>

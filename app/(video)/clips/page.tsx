@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Clips from "@/components/clips";
 
 export default function GeneratePage() {
