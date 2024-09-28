@@ -52,7 +52,7 @@ export default function UploadForm() {
 
     try {
       setLoading(true); // Show loading indicator
-      const response = await fetch('/api/upload', {
+      const response = await fetch('/upload', {
         method: 'POST',
         body: formData,
       });
@@ -61,7 +61,7 @@ export default function UploadForm() {
         setError(null); // Clear any previous errors
 
         // Call the generate API with videoId
-        const generateResponse = await fetch(`/api/generate?videoId=${videoId}`, {
+        const generateResponse = await fetch(`/generate?videoId=${videoId}`, {
           method: 'GET',
         });
 
