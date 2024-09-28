@@ -19,7 +19,7 @@ export default function Clips() {
         const clipsNum = parseInt(storedClipsNum, 10);
         const fetchedClips: string[] = [];
         for (let i = 1; i <= clipsNum; i++) {
-          const response = await fetch(`http://fastapi:8000/api/part?videoId=${storedVideoId}&clipsNum=${i}`);
+          const response = await fetch(`/api/part?videoId=${storedVideoId}&clipsNum=${i}`);
           const videoBlob = await response.blob();
           const videoUrl = URL.createObjectURL(videoBlob);
           fetchedClips.push(videoUrl);

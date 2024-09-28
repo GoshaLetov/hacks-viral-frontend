@@ -60,7 +60,7 @@ export default function UploadForm() {
         setError(null); // Clear any previous errors
 
         // Call the generate API with videoId
-        const generateResponse = await fetch(`http://fastapi:8000/api/generate?videoId=${videoId}`, {
+        const generateResponse = await fetch(`/api/generate?videoId=${videoId}`, {
           method: 'GET',
         });
 
