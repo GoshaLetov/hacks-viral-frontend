@@ -1,5 +1,5 @@
 import VideoThumb from "@/public/images/hero-image-01.jpg";
-import ModalVideo from "@/components/modal-video";
+import VideoPlayer from "./video-player";
 
 export default function WelcomeHome() {
   return (
@@ -49,7 +49,7 @@ export default function WelcomeHome() {
             </div>
           </div>
 
-          <ModalVideo
+          <VideoPlayer
             thumb={VideoThumb}
             thumbWidth={1104}
             thumbHeight={576}

@@ -1,4 +1,4 @@
-import UploadForm from "@/components/upload-form";
+import UploadForm from "@/components/video/upload-form";
 
 export const metadata = {
   title: "Upload video - Tsukizard",

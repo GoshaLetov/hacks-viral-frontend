@@ -16,7 +16,7 @@ interface ModalVideoProps {
   videoHeight: number;
 }
 
-export default function ModalVideo({
+export default function VideoPlayer({
   thumb,
   thumbWidth,
   thumbHeight,

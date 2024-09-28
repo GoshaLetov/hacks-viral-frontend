@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import CustomVideoPlayer from "@/components/custom-video-player";
+import VideoPlayer from "@/components/video/video-player";
 
 export default function Clips() {
   const [clips, setClips] = useState<string[]>([]);
@@ -57,7 +57,7 @@ export default function Clips() {
           {/* Video grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {clips.map((clip, index) => (
-              <CustomVideoPlayer
+              <VideoPlayer
                 key={index}
                 videoSrc={clip}
                 videoWidth={1920}

@@ -3,8 +3,8 @@ export const metadata = {
   description: "Page description",
 };
 
-import PageIllustration from "@/components/page-illustration";
-import WelcomeHome from "@/components/welcome-home";
+import PageIllustration from "@/components/ui/page-illustration";
+import WelcomeHome from "@/components/default/welcome-home";
 
 
 export default function Home() {

@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
 
-interface CustomVideoPlayerProps {
+interface VideoPlayerProps {
   videoSrc: string;
   videoWidth: number;
   videoHeight: number;
 }
 
-const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({ videoSrc, videoWidth, videoHeight }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, videoWidth, videoHeight }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -41,4 +41,4 @@ const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({ videoSrc, videoWi
   );
 };
 
-export default CustomVideoPlayer;
+export default VideoPlayer;
