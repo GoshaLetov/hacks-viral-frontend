@@ -21,7 +21,7 @@ export default function WelcomeHome() {
                 data-aos="fade-up"
                 data-aos-delay={200}
               >
-                Больше вам не нужно самостоятельно вырезать самые запоминающиеся моменты в видео, наш AI сделает все сам.
+                Больше вам не нужно самостоят��льно вырезать самые запоминающиеся моменты в видео, наш AI сделает все сам.
               </p>
               <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
                 <div data-aos="fade-up" data-aos-delay={400}>
@@ -54,7 +54,7 @@ export default function WelcomeHome() {
             thumbWidth={1104}
             thumbHeight={576}
             thumbAlt="Modal video thumbnail"
-            video="videos//demo.mp4"
+            video="/videos/demo.mp4"  // Исправленный путь к видео
             videoWidth={1920}
             videoHeight={1080}
           />
