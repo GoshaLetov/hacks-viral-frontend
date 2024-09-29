@@ -4,11 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid'; // Import UUID library
 import { useRouter } from 'next/navigation'; // Import useRouter from next/navigation
 import { FaFolderOpen } from 'react-icons/fa'; // Import folder icon from react-icons
+import ReactLoading from 'react-loading'; // Импортируем ReactLoading
 
 export default function UploadForm() {
   const [videoId, setVideoId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null); // State for error messages
   const [loading, setLoading] = useState<boolean>(false); // State for loading indicator
+  const [loadingMessage, setLoadingMessage] = useState<string>(''); // State for loading message
   const router = useRouter(); // Initialize the router
 
   useEffect(() => {
@@ -52,6 +54,7 @@ export default function UploadForm() {
 
     try {
       setLoading(true); // Show loading indicator
+      setLoadingMessage('Загружаем видео на наши сервера'); // Set loading message
       console.log('Starting upload request...');
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/upload`, {
         method: 'POST',
@@ -63,6 +66,7 @@ export default function UploadForm() {
         setError(null); // Clear any previous errors
 
         // Call the generate API with videoId
+        setLoadingMessage('Ищем самые интересные моменты'); // Update loading message
         console.log('Starting generate request...');
         const generateResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/generate?videoId=${videoId}`, {
           method: 'GET',
@@ -97,7 +101,7 @@ export default function UploadForm() {
 
   return (
     <div>
-      <form className="mx-auto max-w-[400px] h-[800px]" onSubmit={handleSubmit}>
+      <form className="mx-auto max-w-[400px]" onSubmit={handleSubmit}>
         <div>
           <label
             className="mb-1 block text-sm font-medium text-indigo-200/65"
@@ -120,8 +124,11 @@ export default function UploadForm() {
           </div>
         )}
         {loading && (
-          <div className="mt-4 text-indigo-500">
-            Загрузка...
+          <div className="mt-4 flex flex-col items-center">
+            <ReactLoading type="bars" color="#4F46E5" height={50} width={50} />
+            <div className="mt-2 text-indigo-500">
+              {loadingMessage}
+            </div>
           </div>
         )}
         <div className="mt-6">
